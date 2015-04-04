@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>rest-project</groupId>
+  <artifactId>rest-project</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>rest-example Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  
+  
+
+
+      <properties>
+        <spring.version>4.0.0.RELEASE</spring.version>
+        <cxf.version>3.0.0</cxf.version>
+        <jackson.version>2.0.1</jackson.version>
+    </properties>
+   
+
+
+
+  
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+            <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+    </dependencies>
+    
+  
+  <build>
+  		<pluginManagement>
+			<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+					<configuration>
+					<url>http://localhost:8181/manager/text</url>
+					<server>mytomcat</server>
+					<path>/rest-project</path>
+					</configuration>
+			</plugin>
+		<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>start-tomcat</id>
+						<goals>
+							<goal>run-war</goal>
+						</goals>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<!-- <port>${test.server.port}</port> -->
+							<port>8181</port>
+							<path>/jaxrs-service</path>
+							<fork>true</fork>
+							<useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-tomcat</id>
+						<goals>
+							<goal>shutdown</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+						<configuration>
+							<path>/jaxrs-service</path>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			
+			
+<!--  
+
+<plugin>
+
+    <groupId>org.apache.maven.plugins</groupId>
+
+    <artifactId>maven-release-plugin</artifactId>
+
+    <configuration>
+
+    <tagBase>https://subversion.assembla.com/svn/freedomproject/spring-cxf-rest-example/tags</tagBase>
+
+    </configuration>
+
+    </plugin>
+-->
+			
+			
+			</plugins>
+		</pluginManagement>
+  
+  
+    <finalName>rest-project</finalName>
+  </build>
+</project>
