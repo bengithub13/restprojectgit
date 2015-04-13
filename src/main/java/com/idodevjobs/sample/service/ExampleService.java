@@ -6,6 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
  
+
+//http://localhost:8181/rest-project/services/example/1
 @Path("/example")
 @Produces("application/json")
 public interface ExampleService {
