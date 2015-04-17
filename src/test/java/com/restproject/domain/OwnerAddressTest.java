@@ -30,14 +30,21 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 	protected Owner owner1 ;
 	protected Owner owner2 ;
 	protected Owner owner3;
-	protected Set<Owner> owners1 =new HashSet<Owner>();
-	protected Set<Owner> owners2 =new HashSet<Owner>();
-	
+	protected Set<Owner> address1Owners =new HashSet<Owner>();
+	protected Set<Owner> address2Owners =new HashSet<Owner>();
+	protected Set<Owner> address3Owners =new HashSet<Owner>();
+	protected Set<Owner> address4Owners =new HashSet<Owner>();
+
+
 	protected HomeAddress address1;
 	protected HomeAddress address2;
 	protected HomeAddress address3;
-	protected Set<HomeAddress> addresses1=new HashSet<HomeAddress>();;
-	protected Set<HomeAddress> addresses2=new HashSet<HomeAddress>();;
+	protected HomeAddress address4;
+	protected Set<HomeAddress> owner1Addresses=new HashSet<HomeAddress>();;
+	protected Set<HomeAddress> owner2Addresses=new HashSet<HomeAddress>();;
+	protected Set<HomeAddress> owner3Addresses=new HashSet<HomeAddress>();;
+	protected Set<HomeAddress> owner4Addresses=new HashSet<HomeAddress>();;
+	
 	protected Country country;
 	
 	// log4j native logger code
@@ -48,20 +55,24 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 		logger.info("Test beginning");
 		Session session = SessionFactoryUtils.getSession(sessionFactory, false);
 		owner1 = new Owner();
-		owner1.setId(600L);
+		owner1.setId(1600L);
 		owner1.setFirstName("Ben");
 		owner1.setLastName("Poon");
 		owner2 = new Owner();
-		owner2.setId(601L);
+		owner2.setId(1601L);
 		owner2.setFirstName("Gina");
 		owner2.setLastName("Wong");
 		owner3 = new Owner();
-		owner3.setId(602L);
+		owner3.setId(1602L);
 		owner3.setFirstName("Kathy");
 		owner3.setLastName("Poon");
-		owners1.add(owner1);
-		owners1.add(owner2);
-		owners2.add(owner3);
+		address1Owners.add(owner3);
+		address2Owners.add(owner1);
+		address2Owners.add(owner2);
+		address3Owners.add(owner1);
+		address3Owners.add(owner2);
+		address4Owners.add(owner1);
+
 		
 		//country=new Country();
 		//country.setId(220l);
@@ -71,52 +82,64 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 		country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
 		
 		address1=new HomeAddress();
-		address1.setId(600l);
+		address1.setId(1600l);
 		address1.setAddress("79 Foch Ave");
 		address1.setZipCode("10305");	
-		address1.setOwner(owners2);		
+//		address1.setOwner(address1Owners);		
 	    address1.setCountry(country);
 	    address2=new HomeAddress();
-	    address2.setId(601l);
+	    address2.setId(1601l);
 		address2.setAddress("11420 Queens Blvd");
 		address2.setZipCode("11375");
-		address2.setOwner(owners1);
+//		address2.setOwner(address2Owners);
 		address2.setCountry(country);
 		address3=new HomeAddress();
-		address3.setId(602l);
+		address3.setId(1602l);
 		address3.setAddress("29 Michael Lane");
 		address3.setZipCode("11040");
-		address3.setOwner(owners1);
+//		address3.setOwner(address3Owners);
 		address3.setCountry(country);
+		address4=new HomeAddress();
+		address4.setId(1604l);
+		address4.setAddress("20 Peter Lane");
+		address4.setZipCode("11040");
+//		address4.setOwner(address4Owners);
+		address4.setCountry(country);
 		
 
 		
-		addresses1.add(address2);
-		addresses1.add(address3);
-		addresses2.add(address1);
+		owner3Addresses.add(address1);
+		owner1Addresses.add(address2);
+		owner1Addresses.add(address3);
+		owner1Addresses.add(address4);
+		owner2Addresses.add(address2);
+		owner2Addresses.add(address3);
 		
 		
 //		session.save(address1);
 //		session.save(address2);
 //		session.save(address3);
 		
-		owner1.setAddress(addresses1);
-		owner2.setAddress(addresses1);
-		owner3.setAddress(addresses2);
+		owner1.setAddress(owner1Addresses);
+		owner2.setAddress(owner2Addresses);
+		owner3.setAddress(owner3Addresses);
 		
 		session.flush();
 		session.save(owner1);
 		session.save(owner2);
 		session.save(owner3);
+		
 	}
 
 	@Test
-	 @Rollback(false)
+	// @Rollback(false)
 	public void test() {
 		//BasicConfigurator.configure();   log4j native intialization
 		logger.info("Testing");
 		Owner loaded = (Owner) sessionFactory.getCurrentSession().get(
 				Owner.class, owner1.getId());
+		HomeAddress loaded2 = (HomeAddress) sessionFactory.getCurrentSession().get(
+				HomeAddress.class, address4.getId());
 		assertNotNull(loaded);
 	}
 

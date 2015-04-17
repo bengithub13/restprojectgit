@@ -11,12 +11,16 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
 
 
 @Entity
 @Table(name="owner")
+
 @SequenceGenerator(name=AbstractDomain.GENERATED_VALUE_STRATEGY,sequenceName="OWNER_SEQ")
 public class Owner extends AbstractDomain {
 
@@ -28,11 +32,7 @@ private String firstName;
 private String lastName;
 
 
-//@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-@JoinTable(name="OWNER_ADDRESS_PIVOT",
-joinColumns={@JoinColumn(name="OWNER_FK")},
-inverseJoinColumns={@JoinColumn(name="ADDRESS_FK")})
+@ManyToMany(fetch=FetchType.LAZY,mappedBy="owners",cascade=CascadeType.ALL)
 private Set<HomeAddress> addressSet;
 
 

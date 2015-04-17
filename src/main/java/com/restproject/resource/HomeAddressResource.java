@@ -5,8 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
+
 
 import com.restproject.dto.AddressesDTO;
 
@@ -29,8 +28,13 @@ import com.restproject.dto.AddressesDTO;
 	@Produces("application/json")    
 	  @Path("/{zipCode}")
 	    AddressesDTO getAllAddressesByZip(@PathParam("zipCode") String zipCode);
-	}
+	
 	 
+	    @GET
+@Produces("application/json")    
+@Path("/street/{street}")
+  AddressesDTO getAllAddressesByStreet(@PathParam("street")String street);
+}
 
 
 
