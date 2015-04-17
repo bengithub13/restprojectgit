@@ -1,7 +1,9 @@
 package com.restproject.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -15,14 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.restproject.dao.AddressDAO;
 import com.restproject.domain.HomeAddress;
+import com.restproject.domain.Owner;
 import com.restproject.dto.AddressesDTO;
 import com.restproject.dto.HomeAddressDTO;
+import com.restproject.dto.OwnerDTO;
 import com.restproject.utility.Mapper;
 
 
 @Service("HomeAddressService")
 @ContextConfiguration(locations={"classpath:/META-INF/applicationContext-dbtest.xml"})
-//@Component
+
 public class HomeAddressServiceImp implements HomeAddressService, ApplicationContextAware{
 /*
  * @Resource – Defined in the javax.annotation package and part of Java
@@ -45,6 +49,8 @@ protected AddressDAO homeAddressDAO;
 
 @Autowired
 Mapper<HomeAddress,HomeAddressDTO> homeAddressMapper;
+@Autowired
+Mapper<Owner,OwnerDTO> ownersMapper;
 private static ApplicationContext applicationContext;
 	
 
@@ -57,23 +63,27 @@ super();
 this.homeAddressDAO=homeAddressDAO;
 this.homeAddressMapper=homeAddressMapper;
 }
-	/*
-	@Autowired
-	public HomeAddressServiceImp(@Qualifier("homeAddressDAO") AddressDAO homeAddressDAO, HomeAddressMapperImpl homeAddressMapper){
-	this.homeAddressDAO=homeAddressDAO;
-	this.homeAddressMapper=homeAddressMapper;
-	}
-	*/
+
 
 	@Transactional
 	public AddressesDTO getAllAddressListByZipCode(String zipCode){
 	List<HomeAddress> homeAddresslist=homeAddressDAO.findByZipCode(zipCode);
 	List<HomeAddressDTO> homeAddressDTOList=new ArrayList<HomeAddressDTO>();
+	List<OwnerDTO> ownersDTOList=new ArrayList<OwnerDTO>();
+	Set<OwnerDTO> ownersDTOSet=new HashSet<OwnerDTO>();
 	
 		
 	for (HomeAddress homeAddress:homeAddresslist){
 	HomeAddressDTO homeAddressDTO=new HomeAddressDTO();
 	homeAddressMapper.map(homeAddress, homeAddressDTO);
+		for (Owner owner:homeAddress.getOwner()){
+			OwnerDTO ownerDTO = new OwnerDTO();
+			ownersMapper.map(owner, ownerDTO);
+			
+			ownersDTOSet.add(ownerDTO);
+		}
+
+		homeAddressDTO.setOwners(ownersDTOSet);
 	homeAddressDTOList.add(homeAddressDTO);
 	}
 	
@@ -81,6 +91,33 @@ this.homeAddressMapper=homeAddressMapper;
 	
 	}
 
+	
+	@Transactional
+	public AddressesDTO getAllAddressByStreet(String street){
+	List<HomeAddress> homeAddresslist=homeAddressDAO.findByStreet(street);
+	List<HomeAddressDTO> homeAddressDTOList=new ArrayList<HomeAddressDTO>();
+	List<OwnerDTO> ownersDTOList=new ArrayList<OwnerDTO>();
+	Set<OwnerDTO> ownersDTOSet=new HashSet<OwnerDTO>();
+	
+		
+	for (HomeAddress homeAddress:homeAddresslist){
+	HomeAddressDTO homeAddressDTO=new HomeAddressDTO();
+	homeAddressMapper.map(homeAddress, homeAddressDTO);
+		for (Owner owner:homeAddress.getOwner()){
+			OwnerDTO ownerDTO = new OwnerDTO();
+			ownersMapper.map(owner, ownerDTO);
+			
+			ownersDTOSet.add(ownerDTO);
+		}
+
+		homeAddressDTO.setOwners(ownersDTOSet);
+	homeAddressDTOList.add(homeAddressDTO);
+	}
+	
+	return new AddressesDTO(homeAddressDTOList);
+	
+	}
+	@Transactional
 	public AddressesDTO getAllAddressList() {
 		// TODO Auto-generated method stub
 		List<HomeAddress> homeAddresslist=homeAddressDAO.findAll();

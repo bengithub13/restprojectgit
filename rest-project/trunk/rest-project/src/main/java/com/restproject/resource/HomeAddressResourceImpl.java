@@ -1,6 +1,6 @@
 package com.restproject.resource;
 
-import javax.ws.rs.GET;
+
 
 
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import com.restproject.dto.AddressesDTO;
 import com.restproject.service.HomeAddressServiceImp;
-//@Path("HomeAddress")
+
 @Controller("homeaddress")
 public class HomeAddressResourceImpl implements HomeAddressResource{
 	
@@ -30,4 +30,13 @@ public AddressesDTO getAllAddresses(String zipcode){
 	Logger.getRootLogger().info("all address lookup all zipcodes");
 	return homeAddressService.getAllAddressListByZipCode("11040");	
 	}
+
+
+@Override
+public AddressesDTO getAllAddressesByStreet(String street) {
+	// TODO Auto-generated method stub
+	Logger.getRootLogger().info("get addressby street" + " " +street);
+	return homeAddressService.getAllAddressByStreet(street);	
+
+}
 }

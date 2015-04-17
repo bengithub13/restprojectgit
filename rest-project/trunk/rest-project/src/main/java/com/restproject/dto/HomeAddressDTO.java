@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.restproject.domain.Owner;
+
 
 
 
@@ -15,7 +15,8 @@ import com.restproject.domain.Owner;
 public class HomeAddressDTO {
 private String street;
 private String zipCode;
-private Set<Owner> owners;
+private Set<OwnerDTO> owners;
+//private OwnersDTO owners;
 
 @XmlElement(name="street_name")
 public String getStreet(){
@@ -35,13 +36,15 @@ public void setZipCode(String zipCode){
 	this.zipCode=zipCode;
 }
 
-@XmlElementWrapper(name="owners")
+@XmlElementWrapper(name="all_owners")
 @XmlElement(name="owner")
-public Set<Owner> getOwners(){
+public Set<OwnerDTO> getOwners(){
 	return this.owners;
 }
 
-public void setOwners(Set<Owner> owners){
+
+
+public void setOwners(Set<OwnerDTO> owners){
 this.owners=owners;
 }
 }

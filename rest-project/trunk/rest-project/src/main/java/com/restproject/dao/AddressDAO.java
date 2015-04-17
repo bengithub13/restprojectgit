@@ -9,6 +9,7 @@ import com.restproject.domain.HomeAddress;
 
 public interface AddressDAO extends GenericDAO<HomeAddress> {
 	public List<HomeAddress> findByZipCode(String zipcode);
+	public List<HomeAddress> findByStreet(String street);
 	public List<HomeAddress> findAll();
 	
 }

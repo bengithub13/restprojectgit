@@ -13,7 +13,7 @@ public class HomeAddressMapperImpl implements Mapper<HomeAddress,HomeAddressDTO>
 	
 	public HomeAddressDTO map(HomeAddress source, HomeAddressDTO target) {
 		// TODO Auto-generated method stub
-		target.setOwners(source.getOwner());
+	
 		target.setStreet(source.getStreet());
 		target.setZipCode(source.getZipCode());
 	return target;
