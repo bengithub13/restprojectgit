@@ -23,129 +23,99 @@ import com.restproject.dto.HomeAddressDTO;
 import com.restproject.dto.OwnerDTO;
 import com.restproject.utility.Mapper;
 
-
 @Service("HomeAddressService")
-@ContextConfiguration(locations={"classpath:/META-INF/applicationContext-dbtest.xml"})
+@ContextConfiguration(locations = { "classpath:/META-INF/applicationContext-dbtest.xml" })
+public class HomeAddressServiceImp implements HomeAddressService,
+		ApplicationContextAware {
+	/*
+	 * @Resource – Defined in the javax.annotation package and part of Java if
+	 * you want to express annotation injection by name then use @Resource
+	 * 
+	 * @Resource only can support for fields, and bean property setter methods
+	 * with a single argument.
+	 * 
+	 * @Inject – Defined in the javax.inject package and part of Java
+	 * 
+	 * @Autowired – Defined in the package org.springframework.bean.factory and
+	 * part of Spring framework. autowire is type matched injection - @qualifier
+	 * can used to specify bean with the qualifier propetery set in the bean
+	 * definition Autowire can be used to fields, constructors, and
+	 * multi-argument methods refer to
+	 * http://docs.spring.io/spring/docs/2.5.x/reference
+	 * /beans.html#beans-autowired-annotation
+	 */
 
-public class HomeAddressServiceImp implements HomeAddressService, ApplicationContextAware{
-/*
- * @Resource – Defined in the javax.annotation package and part of Java
- * if  you want to express annotation injection by name then use @Resource
-*@Resource only can support for fields, and bean property setter methods with a single argument.
+	@Resource(name = "homeAddressDAO")
+	protected AddressDAO homeAddressDAO;
 
-@Inject – Defined in the javax.inject package and part of Java
+	@Autowired
+	Mapper<HomeAddress, HomeAddressDTO> homeAddressMapper;
+	@Autowired
+	Mapper<Owner, OwnerDTO> ownersMapper;
+	private static ApplicationContext applicationContext;
 
-@Autowired – Defined in the package org.springframework.bean.factory and part of Spring framework.
-autowire  is type matched injection - @qualifier can used to specify bean with the qualifier propetery set in the bean definition
- Autowire can be used to fields, constructors, and multi-argument methods
- * refer to http://docs.spring.io/spring/docs/2.5.x/reference/beans.html#beans-autowired-annotation
- */
+	public HomeAddressServiceImp() {
+		super();
+	}
 
-
-
-
-@Resource(name="homeAddressDAO")
-protected AddressDAO homeAddressDAO;
-
-@Autowired
-Mapper<HomeAddress,HomeAddressDTO> homeAddressMapper;
-@Autowired
-Mapper<Owner,OwnerDTO> ownersMapper;
-private static ApplicationContext applicationContext;
-	
-
-public HomeAddressServiceImp(){
-	super();
-}
-
-public HomeAddressServiceImp(AddressDAO homeAddressDAO, Mapper<HomeAddress,HomeAddressDTO> homeAddressMapper){
-super();
-this.homeAddressDAO=homeAddressDAO;
-this.homeAddressMapper=homeAddressMapper;
-}
-
+	public HomeAddressServiceImp(AddressDAO homeAddressDAO,
+			Mapper<HomeAddress, HomeAddressDTO> homeAddressMapper) {
+		super();
+		this.homeAddressDAO = homeAddressDAO;
+		this.homeAddressMapper = homeAddressMapper;
+	}
 
 	@Transactional
-	public AddressesDTO getAllAddressListByZipCode(String zipCode){
-	List<HomeAddress> homeAddresslist=homeAddressDAO.findByZipCode(zipCode);
-	List<HomeAddressDTO> homeAddressDTOList=new ArrayList<HomeAddressDTO>();
-	List<OwnerDTO> ownersDTOList=new ArrayList<OwnerDTO>();
-	Set<OwnerDTO> ownersDTOSet=new HashSet<OwnerDTO>();
-	
-		
-	for (HomeAddress homeAddress:homeAddresslist){
-	HomeAddressDTO homeAddressDTO=new HomeAddressDTO();
-	homeAddressMapper.map(homeAddress, homeAddressDTO);
-		for (Owner owner:homeAddress.getOwner()){
-			OwnerDTO ownerDTO = new OwnerDTO();
-			ownersMapper.map(owner, ownerDTO);
-			
-			ownersDTOSet.add(ownerDTO);
-		}
-
-		homeAddressDTO.setOwners(ownersDTOSet);
-	homeAddressDTOList.add(homeAddressDTO);
-	}
-	
-	return new AddressesDTO(homeAddressDTOList);
-	
+	public AddressesDTO getAllAddressListByZipCode(String zipCode) {
+		List<HomeAddress> homeAddressList = homeAddressDAO
+				.findByZipCode(zipCode);
+		return new AddressesDTO(setAddressDTO(homeAddressList));
 	}
 
-	
 	@Transactional
-	public AddressesDTO getAllAddressByStreet(String street){
-	List<HomeAddress> homeAddresslist=homeAddressDAO.findByStreet(street);
-	List<HomeAddressDTO> homeAddressDTOList=new ArrayList<HomeAddressDTO>();
-	List<OwnerDTO> ownersDTOList=new ArrayList<OwnerDTO>();
-	Set<OwnerDTO> ownersDTOSet=new HashSet<OwnerDTO>();
-	
-		
-	for (HomeAddress homeAddress:homeAddresslist){
-	HomeAddressDTO homeAddressDTO=new HomeAddressDTO();
-	homeAddressMapper.map(homeAddress, homeAddressDTO);
-		for (Owner owner:homeAddress.getOwner()){
-			OwnerDTO ownerDTO = new OwnerDTO();
-			ownersMapper.map(owner, ownerDTO);
-			
-			ownersDTOSet.add(ownerDTO);
-		}
+	public AddressesDTO getAllAddressByStreet(String street) {
+		List<HomeAddress> homeAddressList = homeAddressDAO.findByStreet(street);
+		return new AddressesDTO(setAddressDTO(homeAddressList));
+	}
 
-		homeAddressDTO.setOwners(ownersDTOSet);
-	homeAddressDTOList.add(homeAddressDTO);
-	}
-	
-	return new AddressesDTO(homeAddressDTOList);
-	
-	}
 	@Transactional
 	public AddressesDTO getAllAddressList() {
 		// TODO Auto-generated method stub
-		List<HomeAddress> homeAddresslist=homeAddressDAO.findAll();
-		List<HomeAddressDTO> homeAddressDTOList=new ArrayList<HomeAddressDTO>();
-		
-			
-		for (HomeAddress homeAddress:homeAddresslist){
-		HomeAddressDTO homeAddressDTO=new HomeAddressDTO();
-		homeAddressMapper.map(homeAddress, homeAddressDTO);
-		homeAddressDTOList.add(homeAddressDTO);
+		List<HomeAddress> homeAddressList = homeAddressDAO.findAll();
+		return new AddressesDTO(setAddressDTO(homeAddressList));
 	}
-		return new AddressesDTO(homeAddressDTOList);
+
+	public List<HomeAddressDTO> setAddressDTO(List<HomeAddress> homeAddressList) {
+		List<HomeAddressDTO> homeAddressDTOList = new ArrayList<HomeAddressDTO>();
+		List<OwnerDTO> ownersDTOList = new ArrayList<OwnerDTO>();
+
+		for (HomeAddress homeAddress : homeAddressList) {
+			HomeAddressDTO homeAddressDTO = new HomeAddressDTO();
+			homeAddressMapper.map(homeAddress, homeAddressDTO);
+			Set<OwnerDTO> ownersDTOSet = new HashSet<OwnerDTO>();
+			for (Owner owner : homeAddress.getOwner()) {
+				OwnerDTO ownerDTO = new OwnerDTO();
+				ownersMapper.map(owner, ownerDTO);
+
+				ownersDTOSet.add(ownerDTO);
+			}
+
+			homeAddressDTO.setOwners(ownersDTOSet);
+			homeAddressDTOList.add(homeAddressDTO);
+		}
+		return homeAddressDTOList;
 	}
-	
 
-
-public static void setApplicationContexts(ApplicationContext applicationContexts){
-	applicationContext=applicationContexts;
-}
+	public static void setApplicationContexts(
+			ApplicationContext applicationContexts) {
+		applicationContext = applicationContexts;
+	}
 
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
 		// TODO Auto-generated method stub
 		setApplicationContexts(applicationContext);
-		
-	}
 
-	
-	
+	}
 
 }

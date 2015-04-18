@@ -118,11 +118,43 @@ public List<Owner> getOwner() {
 }  
 
 
+
+
+
 public void setOwner(List<Owner> owners) {  
    this.owners = owners;  
 }  
 
 
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((street == null) ? 0 : street.hashCode());
+	result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
+	return result;
+}
 
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (!super.equals(obj))
+		return false;
+	if (!(obj instanceof HomeAddress))
+		return false;
+	HomeAddress other = (HomeAddress) obj;
+	if (street == null) {
+		if (other.street != null)
+			return false;
+	} else if (!street.equals(other.street))
+		return false;
+	if (zipCode == null) {
+		if (other.zipCode != null)
+			return false;
+	} else if (!zipCode.equals(other.zipCode))
+		return false;
+	return true;
+}
 
 }

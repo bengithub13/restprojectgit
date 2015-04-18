@@ -28,7 +28,8 @@ public AddressesDTO getAllAddressesByZip(String zipCode) {
 
 public AddressesDTO getAllAddresses(String zipcode){
 	Logger.getRootLogger().info("all address lookup all zipcodes");
-	return homeAddressService.getAllAddressListByZipCode("11040");	
+	//return homeAddressService.getAllAddressListByZipCode("11040");	
+	return homeAddressService.getAllAddressList();
 	}
 
 
