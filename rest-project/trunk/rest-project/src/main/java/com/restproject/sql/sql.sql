@@ -1,3 +1,14 @@
+CREATE TABLE ADDRESS 
+   (	ID NUMBER NOT NULL, 
+	STREET VARCHAR2(50 BYTE) NOT NULL, 
+	ZIP_CODE VARCHAR2(10 BYTE) NOT NULL, 
+	COUNTRY_FK NUMBER NOT NULL, 
+	CONSTRAINT ADDRESS_PK PRIMARY KEY (ID)
+	CONSTRAINT ADDRESS_FK1 FOREIGN KEY (COUNTRY_FK)
+	REFERENCES COUNTRY (ID) 
+ );
+
+
 CREATE TABLE country (
   country_id   NUMBER NOT NULL ENABLE,
   country      VARCHAR(50) NOT NULL,
@@ -15,12 +26,14 @@ last_name varchar(20),
 constraint owner_pk primary key(owner_id)
 );
 
-create table owner_address(
-owner_id number not null,
-address_id number not null,
-constraint owner_address_pk primary key(owner_id,address_id),
-constraint owner_fk foreign key(owner_id) references owner,
-constraint address_fk foreign key(address_id) references address
+create table owner_address_pivot(
+owner_fk number not null,
+address_fk number not null,
+CONSTRAINT OWNER_ADDRESS_PIVOT_PK PRIMARY KEY (OWNER_FK, ADDRESS_FK),
+ CONSTRAINT OWNER_ADDRESS_PIVOT_FK1 FOREIGN KEY (OWNER_FK)
+	  REFERENCES OWNER (ID),
+ CONSTRAINT OWNER_ADDRESS_PIVOT_FK2 FOREIGN KEY (ADDRESS_FK)
+	  REFERENCES ADDRESS (ID)
 );
 
 
