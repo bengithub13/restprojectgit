@@ -146,8 +146,10 @@ public T findByID(Class<?> clazz, BigDecimal id) {
 	
 	
 	private void setPositionalParameters(Query queryObject, Object[] queryArgs){
+		if (queryArgs!=null){
 		for (int i=0;i<queryArgs.length;i++){
 			queryObject.setParameter(i,queryArgs[i] );
+		}
 		}
 	}
 	
