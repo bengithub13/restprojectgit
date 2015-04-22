@@ -46,17 +46,17 @@ public class AddressTest extends AbstractTransactionalJUnit4SpringContextTests{
 //	country.setDate();
 	country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
 	address1 = new HomeAddress();
-	address1.setId(603l);
+	address1.setId(703l);
 	address1.setAddress("19 peter Ln");
 	address1.setZipCode("11040");
 	address1.setCountry(country);
 	address2 = new HomeAddress();
-	address2.setId(604l);
+	address2.setId(704l);
 	address2.setAddress("11420 Queens Blvd");
 	address2.setZipCode("11375");
 	address2.setCountry(country);
 	address3 = new HomeAddress();
-	address3.setId(605l);
+	address3.setId(705l);
 	address3.setAddress("14 leslie ln");
 	address3.setZipCode("11040");
 	address3.setCountry(country);
@@ -74,7 +74,7 @@ public class AddressTest extends AbstractTransactionalJUnit4SpringContextTests{
 	}
 
 	@Test
-	@Rollback(false)
+//	@Rollback(false)
 	public void test() {
 		
 		HomeAddress loaded = (HomeAddress)sessionFactory.getCurrentSession().get(HomeAddress.class, address1.getId()) ;

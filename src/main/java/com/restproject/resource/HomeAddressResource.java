@@ -19,7 +19,7 @@ import com.restproject.dto.AddressesDTO;
     @GET
 	@Path("/all")
     @Produces("application/xml")
-    AddressesDTO getAllAddresses(String zipcode);
+    AddressesDTO getAllAddresses();
  
 	
 	    @GET
