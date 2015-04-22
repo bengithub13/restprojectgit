@@ -17,13 +17,17 @@ import com.restproject.dto.AddressesDTO;
 
 @RequestMapping("/HomeAddress")
 public interface HomeAddressController {
-
-	@RequestMapping(value="/all",method = RequestMethod.GET)
+	// http://localhost:8181/rest-project/services/springmvc/HomeAddress/all
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	String getAllAddresses(ModelMap model);
 
-	@RequestMapping(value="/zipCode",method = RequestMethod.GET)
-	String getAllAddressesByZip(@RequestParam("zipCode") String zipCode, ModelMap model);
+	// http://localhost:8181/rest-project/services/springmvc/HomeAddress/zipCode
+	@RequestMapping(value = "/zipCode", method = RequestMethod.GET)
+	String getAllAddressesByZip(@RequestParam("zipCode") String zipCode,
+			ModelMap model);
 
-	@RequestMapping(value="/street",method = RequestMethod.GET)
-	String getAllAddressesByStreet(@RequestParam("street") String street, ModelMap model);
+	// http://localhost:8181/rest-project/services/springmvc/HomeAddress/street
+	@RequestMapping(value = "/street", method = RequestMethod.GET)
+	String getAllAddressesByStreet(@RequestParam("street") String street,
+			ModelMap model);
 }

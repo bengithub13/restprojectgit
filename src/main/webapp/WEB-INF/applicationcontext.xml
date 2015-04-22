@@ -98,7 +98,6 @@
     <jaxrs:server id="exampleCxfServer" address="/">
         <jaxrs:serviceBeans>
         <ref bean="homeAddressResource"/>
-            <ref bean="exampleService"/>
         </jaxrs:serviceBeans>
         <jaxrs:extensionMappings>
             <entry key="json" value="application/json"/>
