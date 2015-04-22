@@ -53,12 +53,16 @@
 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>     
 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>     
 <!-- to enable the thread bound strategy in hibernate -->
-<!--  JDBCTransactionFactory is ok for single db connection  -->   
+<!--  JDBCTransactionFactory is ok for single db connection  --> 
+<!-- can also be set to JTATransactionFactory..In a system with multiple databases, it may be a program that will call the data in several databases, need a distributed transaction, or ready to use JTA to manage the inter-Session long transaction, then you need to use JTA transaction-->
+  
 <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
 <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
 <prop key="hibernate.hbm2ddl.auto">validate
 </prop>        
-<prop key="hibernate.show_sql">true</prop>      
+<prop key="hibernate.show_sql">true</prop> 
+<prop key="hibernate.format_sql">true</prop> 
+<prop key="hibernate.use_sql_comments">true</prop>      
 </props>    
 </property>  
 </bean>

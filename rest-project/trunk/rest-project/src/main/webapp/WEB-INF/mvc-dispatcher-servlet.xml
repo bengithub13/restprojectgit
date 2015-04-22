@@ -5,20 +5,35 @@
        xmlns:cxf="http://cxf.apache.org/core"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        	xmlns:aop="http://www.springframework.org/schema/aop"
+       	xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                        	http://www.springframework.org/schema/aop
 						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
                         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-                        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+                        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+ 
+ <tx:annotation-driven /> 
  
  <aop:config proxy-target-class="true" />
 <context:annotation-config />
     <context:component-scan base-package="com.idodevjobs,com.restproject" />
  
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
   <import resource="classpath:META-INF/cxf/cxf.xml" />
   
+  <bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
   
   <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">            
 
@@ -54,13 +69,15 @@
 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>     
 <!-- to enable the thread bound strategy in hibernate -->
 <!--  JDBCTransactionFactory is ok for single db connection  -->   
+<!-- can also be set to JTATransactionFactory..In a system with multiple databases, it may be a program that will call the data in several databases, need a distributed transaction, or ready to use JTA to manage the inter-Session long transaction, then you need to use JTA transaction-->
+
 <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
 <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
 <prop key="hibernate.hbm2ddl.auto">validate
 </prop>        
-<prop key="hibernate.show_sql">true</prop>     
+<prop key="hibernate.show_sql">true</prop>  
 <prop key="hibernate.format_sql">true</prop> 
-<prop key="hibernate.use_sql_comments">true</prop>    
+<prop key="hibernate.use_sql_comments">true</prop>       
 </props>    
 </property>  
 </bean>
@@ -74,7 +91,7 @@
 <bean id="daoProxyFactory" class="com.restproject.dao.DAOProxyFactory" destroy-method="cleanup">
 </bean>
 <!-- homeAddress DAO -->
-<bean id="homeAddressDAO" factory-bean="daoProxyFactory" factory-method="newInstance" scope="prototype">
+<bean id="homeAddressDAO" factory-bean="daoProxyFactory" factory-method="newInstance" destroy-method="cleanup">
 
 <constructor-arg type="java.lang.Class" value="com.restproject.dao.AddressDAO"></constructor-arg>
 <constructor-arg type="java.lang.Class" value="com.restproject.domain.HomeAddress"></constructor-arg>
@@ -88,7 +105,7 @@
  
     <jaxrs:server id="exampleCxfServer" address="/">
         <jaxrs:serviceBeans>
-           <ref bean="homeAddressResource"/>
+        <ref bean="homeAddressResource"/>
             <ref bean="exampleService"/>
         </jaxrs:serviceBeans>
         <jaxrs:extensionMappings>
