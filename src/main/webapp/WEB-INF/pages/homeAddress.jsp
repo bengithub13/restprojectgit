@@ -1,9 +1,9 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<h2>Spring MVC Multiple Row Form Submit example</h2>
+<h2>Spring MVC Address example</h2>
 <%@ page isELIgnored="false" %>
-    <title>Spring 3 MVC Multipe Row Submit - viralpatel.net</title>
+    <title>Spring MVC address</title>
  
  <!-- http://www.dineshonjava.com/2013/10/jstl-foreach-tag.html#.VTstCpNQ1WE -->
 <h2>Show Addresses</h2>     
