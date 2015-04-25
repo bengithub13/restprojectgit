@@ -17,11 +17,11 @@ public AddressesDTO(List<HomeAddressDTO> homeAddresses){
 }
 
 @XmlElement(name="address")
-public List<HomeAddressDTO> getAddresses(){
+public List<HomeAddressDTO> getHomeAddresses(){
 	return homeAddresses;
 }
 
-public void setAddresses(List<HomeAddressDTO> homeAddresses){
+public void setHomeAddresses(List<HomeAddressDTO> homeAddresses){
 	this.homeAddresses=homeAddresses;
 }
 

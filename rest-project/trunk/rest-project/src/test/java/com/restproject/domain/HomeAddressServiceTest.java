@@ -92,8 +92,8 @@ Dear Mockito, please check during the test execution, that petRepository.save() 
 		Mockito.doReturn(createAddressList()).when(homeAddressDAO).findByZipCode(Mockito.anyString());
 //		Mockito.when(homeAddressDAO.findByZipCode(Mockito.anyString())).thenReturn(createAddressList());
 		AddressesDTO addressesDTO=homeAddressService.getAllAddressListByZipCode("11040");
-		logger.info("homeaddressservice testing ..."+addressesDTO.getAddresses().get(0).getStreet()+" "+addressesDTO.getAddresses().get(1).getStreet());
-		assertEquals(2,addressesDTO.getAddresses().size());
+		logger.info("homeaddressservice testing ..."+addressesDTO.getHomeAddresses().get(0).getStreet()+" "+addressesDTO.getHomeAddresses().get(1).getStreet());
+		assertEquals(2,addressesDTO.getHomeAddresses().size());
 	}
 
 	
