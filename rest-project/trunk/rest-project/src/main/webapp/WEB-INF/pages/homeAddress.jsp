@@ -2,9 +2,10 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link href="<c:url value="/resources/css/homeAddress.css" />" rel="stylesheet">
-<script src="<c:url value="/resources/js/jquery.1.7.2.min.js" />"></script>
-<script src="<c:url value="/resources/js/homeAddress.js" />"></script>
+<link href="<c:url value="/resources/themes/css/homeAddress.css" />" rel="stylesheet">
+<script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="<c:url value="/resources/themes/js/homeAddress.js" />"></script>
 <h1>Spring MVC Address example</h1>
 <%@ page isELIgnored="false" %>
 
