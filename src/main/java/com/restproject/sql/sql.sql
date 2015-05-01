@@ -1,3 +1,13 @@
+CREATE TABLE country (
+  id   NUMBER NOT NULL ENABLE,
+  country      VARCHAR(50) NOT NULL,
+  last_update  TIMESTAMP   NOT NULL,
+  CONSTRAINT COUNTRY_PK PRIMARY KEY  (id)
+);
+
+create sequence country_seq;
+
+
 CREATE TABLE ADDRESS 
    (	
    ID NUMBER NOT NULL, 
@@ -10,14 +20,6 @@ CREATE TABLE ADDRESS
  );
 
 
-CREATE TABLE country (
-  id   NUMBER NOT NULL ENABLE,
-  country      VARCHAR(50) NOT NULL,
-  last_update  TIMESTAMP   NOT NULL,
-  CONSTRAINT COUNTRY_PK PRIMARY KEY  (id)
-);
-
-create sequence country_seq;
 
 
 create table owner(
