@@ -1,5 +1,6 @@
 CREATE TABLE ADDRESS 
-   (	ID NUMBER NOT NULL, 
+   (	
+   ID NUMBER NOT NULL, 
 	STREET VARCHAR2(50 BYTE) NOT NULL, 
 	ZIP_CODE VARCHAR2(10 BYTE) NOT NULL, 
 	COUNTRY_FK NUMBER NOT NULL, 
@@ -10,20 +11,20 @@ CREATE TABLE ADDRESS
 
 
 CREATE TABLE country (
-  country_id   NUMBER NOT NULL ENABLE,
+  id   NUMBER NOT NULL ENABLE,
   country      VARCHAR(50) NOT NULL,
   last_update  TIMESTAMP   NOT NULL,
-  CONSTRAINT COUNTRY_PK PRIMARY KEY  (country_id)
+  CONSTRAINT COUNTRY_PK PRIMARY KEY  (id)
 );
 
 create sequence country_seq;
 
 
 create table owner(
-owner_id  Number not null,
+id  Number not null,
 first_name varchar(20),
 last_name varchar(20),
-constraint owner_pk primary key(owner_id)
+constraint owner_pk primary key(id)
 );
 
 create table owner_address_pivot(
