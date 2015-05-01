@@ -55,15 +55,15 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 		logger.info("Test beginning");
 		Session session = SessionFactoryUtils.getSession(sessionFactory, false);
 		owner1 = new Owner();
-		owner1.setId(1600L);
+		owner1.setId(11600L);
 		owner1.setFirstName("Ben");
 		owner1.setLastName("Poon");
 		owner2 = new Owner();
-		owner2.setId(1601L);
+		owner2.setId(11601L);
 		owner2.setFirstName("Gina");
 		owner2.setLastName("Wong");
 		owner3 = new Owner();
-		owner3.setId(1602L);
+		owner3.setId(11602L);
 		owner3.setFirstName("Kathy");
 		owner3.setLastName("Poon");
 		address1Owners.add(owner3);
@@ -74,33 +74,33 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 		address4Owners.add(owner1);
 
 		
-		//country=new Country();
-		//country.setId(220l);
-		//country.setCountry("United States");
-		//country.setDate();
+		country=new Country();
+		country.setId(220l);
+		country.setCountry("United States");
+		country.setDate();
 		
-		country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
+		//country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
 		
 		address1=new HomeAddress();
-		address1.setId(1600l);
+		address1.setId(11600l);
 		address1.setAddress("79 Foch Ave");
 		address1.setZipCode("10305");	
 //		address1.setOwner(address1Owners);		
 	    address1.setCountry(country);
 	    address2=new HomeAddress();
-	    address2.setId(1601l);
+	    address2.setId(11601l);
 		address2.setAddress("11420 Queens Blvd");
 		address2.setZipCode("11375");
 //		address2.setOwner(address2Owners);
 		address2.setCountry(country);
 		address3=new HomeAddress();
-		address3.setId(1602l);
+		address3.setId(11602l);
 		address3.setAddress("29 Michael Lane");
 		address3.setZipCode("11040");
 //		address3.setOwner(address3Owners);
 		address3.setCountry(country);
 		address4=new HomeAddress();
-		address4.setId(1604l);
+		address4.setId(11604l);
 		address4.setAddress("20 Peter Lane");
 		address4.setZipCode("11040");
 //		address4.setOwner(address4Owners);
@@ -132,7 +132,7 @@ public class OwnerAddressTest extends AbstractTransactionalJUnit4SpringContextTe
 	}
 
 	@Test
-	// @Rollback(false)
+	@Rollback(false)
 	public void test() {
 		//BasicConfigurator.configure();   log4j native intialization
 		logger.info("Testing");
