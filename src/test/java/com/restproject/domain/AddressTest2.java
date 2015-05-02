@@ -19,11 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@TestExecutionListeners(TransactionalTestExecutionListener.class)
-//   DependencyInjectionTestExecutionListener.class, ServletTestExecutionListener.class})
-
  @Transactional
-//public class CountryTests extends AbstractTransactionalJUnit4SpringContextTests{
 @ContextConfiguration(locations={"classpath:/META-INF/applicationContext.xml"})
 
 public class AddressTest2 extends AbstractTransactionalJUnit4SpringContextTests{
@@ -40,12 +36,12 @@ public class AddressTest2 extends AbstractTransactionalJUnit4SpringContextTests{
 	Session session=SessionFactoryUtils.getSession(sessionFactory,false);	
 	logger.info("DAO testing  beginning");
 	country = new Country();
-	country.setId(600L);
+	country.setId(1600L);
 	country.setCountry("china");
 	country.setDate();
 
 	address1 = new HomeAddress();
-	address1.setId(601l);
+	address1.setId(1601l);
 	address1.setAddress("45 Michael Ln");
 	address1.setZipCode("11040");
 	address1.setCountry(country);	
@@ -76,7 +72,7 @@ public class AddressTest2 extends AbstractTransactionalJUnit4SpringContextTests{
 	}
 
 	@Test
-	@Rollback(false)
+	//@Rollback(false)
 	public void test() {
 		
 		HomeAddress loaded = (HomeAddress)sessionFactory.getCurrentSession().get(HomeAddress.class, address1.getId()) ;
