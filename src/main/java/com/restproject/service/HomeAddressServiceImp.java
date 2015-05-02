@@ -92,18 +92,18 @@ public class HomeAddressServiceImp implements HomeAddressService,
 		for (HomeAddress homeAddress : homeAddressList) {
 			HomeAddressDTO homeAddressDTO = new HomeAddressDTO();
 			homeAddressMapper.map(homeAddress, homeAddressDTO);
-			
-			if  (!((homeAddress.getOwner())==null) ){
-			
-			Set<OwnerDTO> ownersDTOSet = new HashSet<OwnerDTO>();
-			for (Owner owner : homeAddress.getOwner()) {
-				OwnerDTO ownerDTO = new OwnerDTO();
-				ownersMapper.map(owner, ownerDTO);
 
-				ownersDTOSet.add(ownerDTO);
-			}
-		
-			homeAddressDTO.setOwners(ownersDTOSet);
+			if (!((homeAddress.getOwner()) == null)) {
+
+				Set<OwnerDTO> ownersDTOSet = new HashSet<OwnerDTO>();
+				for (Owner owner : homeAddress.getOwner()) {
+					OwnerDTO ownerDTO = new OwnerDTO();
+					ownersMapper.map(owner, ownerDTO);
+
+					ownersDTOSet.add(ownerDTO);
+				}
+
+				homeAddressDTO.setOwners(ownersDTOSet);
 			}
 			homeAddressDTOList.add(homeAddressDTO);
 		}
