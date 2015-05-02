@@ -39,12 +39,12 @@ public class AddressTest extends AbstractTransactionalJUnit4SpringContextTests{
 		
 	Session session=SessionFactoryUtils.getSession(sessionFactory,false);	
 	logger.info("DAO testing  beginning");
-	//country = new Country();
+	country = new Country();
 	
-//	country.setId(600L);
-//	country.setCountry("china");
-//	country.setDate();
-	country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
+	country.setId(600L);
+	country.setCountry("china");
+	country.setDate();
+	//country= (Country)sessionFactory.getCurrentSession().get(Country.class, 600L);
 	address1 = new HomeAddress();
 	address1.setId(703l);
 	address1.setAddress("19 peter Ln");

@@ -92,6 +92,9 @@ public class HomeAddressServiceImp implements HomeAddressService,
 		for (HomeAddress homeAddress : homeAddressList) {
 			HomeAddressDTO homeAddressDTO = new HomeAddressDTO();
 			homeAddressMapper.map(homeAddress, homeAddressDTO);
+			
+			if  (!((homeAddress.getOwner())==null) ){
+			
 			Set<OwnerDTO> ownersDTOSet = new HashSet<OwnerDTO>();
 			for (Owner owner : homeAddress.getOwner()) {
 				OwnerDTO ownerDTO = new OwnerDTO();
@@ -99,8 +102,9 @@ public class HomeAddressServiceImp implements HomeAddressService,
 
 				ownersDTOSet.add(ownerDTO);
 			}
-
+		
 			homeAddressDTO.setOwners(ownersDTOSet);
+			}
 			homeAddressDTOList.add(homeAddressDTO);
 		}
 		return homeAddressDTOList;

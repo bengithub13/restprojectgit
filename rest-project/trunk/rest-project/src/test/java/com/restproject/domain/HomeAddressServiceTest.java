@@ -21,10 +21,8 @@ import com.restproject.service.HomeAddressServiceImp;
 import com.restproject.utility.HomeAddressMapperImpl;
 
 @RunWith(MockitoJUnitRunner.class)
-//
 @Transactional
-//public class CountryTests extends
-//AbstractTransactionalJUnit4SpringContextTests{
+
 @ContextConfiguration(locations = { "classpath:/META-INF/applicationContext.xml" })
 public class HomeAddressServiceTest extends AbstractTransactionalJUnit4SpringContextTests{
 	@Mock
@@ -40,7 +38,7 @@ public void Setup(){
 	homeAddressService=new HomeAddressServiceImp(homeAddressDAO,new HomeAddressMapperImpl());
 	Country country;
 	country = new Country();
-	country.setId(600L);
+	country.setId(1600L);
 	country.setCountry("china");
 	country.setDate();
 
@@ -90,7 +88,6 @@ Dear Mockito, please check during the test execution, that petRepository.save() 
 	public void test() {
 		
 		Mockito.doReturn(createAddressList()).when(homeAddressDAO).findByZipCode(Mockito.anyString());
-//		Mockito.when(homeAddressDAO.findByZipCode(Mockito.anyString())).thenReturn(createAddressList());
 		AddressesDTO addressesDTO=homeAddressService.getAllAddressListByZipCode("11040");
 		logger.info("homeaddressservice testing ..."+addressesDTO.getHomeAddresses().get(0).getStreet()+" "+addressesDTO.getHomeAddresses().get(1).getStreet());
 		assertEquals(2,addressesDTO.getHomeAddresses().size());
