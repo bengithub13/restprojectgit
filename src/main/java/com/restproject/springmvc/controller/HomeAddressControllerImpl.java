@@ -11,7 +11,7 @@ import com.restproject.service.HomeAddressServiceImp;
 public class HomeAddressControllerImpl implements HomeAddressController {
 	@Autowired
 	HomeAddressServiceImp homeAddressService;
-	@Override
+	
 	public ModelAndView getAllAddresses() {
 		Logger.getRootLogger().info("all address lookup");
 		return new ModelAndView("homeAddress","addressesObject",homeAddressService.getAllAddressList());	
@@ -22,13 +22,13 @@ public class HomeAddressControllerImpl implements HomeAddressController {
 	 * 2nd parameter = model data name
 	 * 3rd parameter = model data
 	 * 	 */
-	@Override
+	
 	public ModelAndView getAllAddressesByZip(String zipCode) {
 		Logger.getRootLogger().info("all address lookup for a zipcode");
 		return new ModelAndView("homeAddress","addressesObject",homeAddressService.getAllAddressListByZipCode(zipCode));	
 	}
 
-	@Override
+	
 	public ModelAndView getAllAddressesByStreet(String street) {
 		Logger.getRootLogger().info("all address lookup for street");
 		return new ModelAndView("homeAddress","addressesObject",homeAddressService.getAllAddressByStreet(street));	
