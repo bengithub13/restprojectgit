@@ -33,7 +33,7 @@ public AddressesDTO getAllAddresses(){
 	}
 
 
-@Override
+
 public AddressesDTO getAllAddressesByStreet(String street) {
 	// TODO Auto-generated method stub
 	Logger.getRootLogger().info("get addressby street" + " " +street);
