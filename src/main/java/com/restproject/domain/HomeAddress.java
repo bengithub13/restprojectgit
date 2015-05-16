@@ -3,7 +3,6 @@ package com.restproject.domain;
 
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,17 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
-import org.hibernate.annotations.Where;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.restproject.dao.DAOProxyFactory;
 @Entity
 @NamedQueries({
 	// if more than one address domain is returned..the owners children are returned with a full outer join and we end up getting all owners for 

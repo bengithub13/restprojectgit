@@ -87,7 +87,7 @@ public class HomeAddressServiceImp implements HomeAddressService,
 
 	public List<HomeAddressDTO> setAddressDTO(List<HomeAddress> homeAddressList) {
 		List<HomeAddressDTO> homeAddressDTOList = new ArrayList<HomeAddressDTO>();
-		List<OwnerDTO> ownersDTOList = new ArrayList<OwnerDTO>();
+	
 
 		for (HomeAddress homeAddress : homeAddressList) {
 			HomeAddressDTO homeAddressDTO = new HomeAddressDTO();
